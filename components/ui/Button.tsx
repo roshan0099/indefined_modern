@@ -12,10 +12,10 @@ interface ButtonProps extends HTMLMotionProps<'button'> {
 
 const Button: React.FC<ButtonProps> = ({ children, variant = 'primary', className, ...props }) => {
   const baseClasses = "px-8 py-3 font-heading text-lg tracking-wider uppercase rounded-full transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-primary-green/30";
-  
+
   const variants = {
-    primary: "bg-primary-green text-white hover:bg-opacity-90",
-    secondary: "bg-transparent border-2 border-primary-green text-primary-green hover:bg-primary-green hover:text-white",
+    primary: "bg-primary-green dark:bg-emerald-600 text-white hover:bg-opacity-90 dark:hover:bg-emerald-700",
+    secondary: "bg-transparent border-2 border-primary-green dark:border-emerald-500 text-primary-green dark:text-emerald-500 hover:bg-primary-green dark:hover:bg-emerald-500 hover:text-white dark:hover:text-white",
   };
 
   return (

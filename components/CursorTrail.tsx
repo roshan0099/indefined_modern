@@ -12,7 +12,7 @@ const CursorTrail: React.FC = () => {
     return null;
   }
 
-  const numDots = 12; // Increased slightly for a longer trail
+  const numDots = 20; // Increased slightly for a longer trail
   const trailDots = Array.from({ length: numDots });
 
   return (
@@ -20,7 +20,7 @@ const CursorTrail: React.FC = () => {
       {trailDots.map((_, i) => {
         // Dynamic size calculation
         const size = Math.max(4, 18 - i * 1.5);
-        
+
         return (
           <motion.div
             key={i}
@@ -35,9 +35,9 @@ const CursorTrail: React.FC = () => {
             animate={{ x, y }}
             transition={{
               type: 'spring',
-              damping: 30, // Increased damping for less oscillation
-              stiffness: 150, // Reduced stiffness for a "looser", slower follow
-              mass: 0.5 + i * 0.15, // Increased mass stagger for a heavier, more fluid trail
+              damping: 25 + i * 2, // Increased damping for less oscillation
+              stiffness: 250 - i * 15, // Reduced stiffness for a "looser", slower follow
+              mass: 0.5 + i * 0.1, // Increased mass stagger for a heavier, more fluid trail
             }}
           />
         );

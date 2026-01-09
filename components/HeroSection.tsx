@@ -4,7 +4,7 @@ import Button from './ui/Button';
 import { HeroShapeOne, HeroShapeTwo, HeroShapeThree, HeroShapeFour } from './AnimatedDecorations';
 
 const HeroSection: React.FC = () => {
-  
+
   const title = "indefined>";
   const titleVariants: Variants = {
     hidden: { opacity: 0 },
@@ -25,23 +25,23 @@ const HeroSection: React.FC = () => {
   const scrollToSection = (id: string) => {
     const element = document.querySelector(id);
     if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <section id="home" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-20 bg-white">
+    <section id="home" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-20 bg-white dark:bg-dark-bg transition-colors duration-300">
       <div className="absolute top-0 left-0 w-full h-full opacity-50 z-0">
-          <HeroShapeOne custom={1} className="absolute top-[10%] left-[10%]" />
-          <HeroShapeTwo custom={2} className="absolute bottom-[15%] right-[12%]" />
-          <HeroShapeThree custom={3} className="absolute top-[15%] right-[15%]" />
-          <HeroShapeFour custom={4} className="absolute bottom-[25%] left-[15%]" />
-          <HeroShapeOne custom={5} className="absolute bottom-[45%] left-[25%] !w-12 !h-12" />
-          <HeroShapeTwo custom={6} className="absolute top-[30%] left-[40%] !w-8 !h-8" />
-          <HeroShapeFour custom={7} className="absolute bottom-[10%] left-[50%]" />
+        <HeroShapeOne custom={1} className="absolute top-[10%] left-[10%]" />
+        <HeroShapeTwo custom={2} className="absolute bottom-[15%] right-[12%]" />
+        <HeroShapeThree custom={3} className="absolute top-[15%] right-[15%]" />
+        <HeroShapeFour custom={4} className="absolute bottom-[25%] left-[15%]" />
+        <HeroShapeOne custom={5} className="absolute bottom-[45%] left-[25%] !w-12 !h-12" />
+        <HeroShapeTwo custom={6} className="absolute top-[30%] left-[40%] !w-8 !h-8" />
+        <HeroShapeFour custom={7} className="absolute bottom-[10%] left-[50%]" />
       </div>
 
-      <motion.div 
+      <motion.div
         className="text-center z-10 p-4"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -57,21 +57,21 @@ const HeroSection: React.FC = () => {
             <motion.span
               key={index}
               variants={letterVariants}
-              className={char === '>' ? 'primary-text' : 'text-black'}
+              className={char === '>' ? 'primary-text' : 'text-black dark:text-white'}
             >
               {char}
             </motion.span>
           ))}
         </motion.h1>
-        <motion.p 
-          className="text-md md:text-xl max-w-2xl mx-auto mt-4 text-black/70"
+        <motion.p
+          className="text-md md:text-xl max-w-2xl mx-auto mt-4 text-black/70 dark:text-gray-300"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.5 }}
         >
           We craft bespoke digital experiences that defy the ordinary and define the future.
         </motion.p>
-        <motion.div 
+        <motion.div
           className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

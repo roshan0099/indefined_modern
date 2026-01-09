@@ -15,7 +15,7 @@ import CursorTrail from './components/CursorTrail';
 
 const App: React.FC = () => {
   return (
-    <div className="font-body bg-white text-black relative overflow-x-hidden">
+    <div className="font-body bg-white dark:bg-dark-bg text-black dark:text-gray-100 relative overflow-x-hidden transition-colors duration-300">
       <CursorTrail />
       <Header />
       <main className="relative z-10">

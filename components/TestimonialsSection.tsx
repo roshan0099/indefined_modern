@@ -27,28 +27,28 @@ const testimonials = [
 
 const TestimonialCard: React.FC<{ name: string; company: string; quote: string; }> = ({ name, company, quote }) => {
   return (
-    <div className="flex-shrink-0 w-[350px] md:w-[450px] mx-4 border border-gray-200 p-8 bg-white shadow-sm rounded-2xl hover:shadow-md transition-shadow duration-300 hover:-translate-y-1">
-      <p className="text-lg text-black/70 font-body mb-6">"{quote}"</p>
-      <div className="font-heading text-xl text-black">
+    <div className="flex-shrink-0 w-[350px] md:w-[450px] mx-4 border border-gray-200 dark:border-gray-700/50 p-8 bg-white dark:bg-dark-card shadow-sm rounded-2xl hover:shadow-md transition-shadow duration-300 hover:-translate-y-1">
+      <p className="text-lg text-black/70 dark:text-gray-300 font-body mb-6">"{quote}"</p>
+      <div className="font-heading text-xl text-black dark:text-white flex items-center gap-2">
         {name}
-        <span className="primary-text ml-1">&gt;</span>
-        <span className="block text-base font-body text-black/60 tracking-normal normal-case mt-1">{company}</span>
+        <span className="primary-text dark:text-emerald-400 leading-none">&gt;</span>
       </div>
+      <span className="block text-base font-body text-black/60 dark:text-gray-500 tracking-normal normal-case mt-1">{company}</span>
     </div>
   );
 };
 
 
 const TestimonialsSection: React.FC = () => {
-    const isMobile = useIsMobile();
-    // Increased duration (slower speed) for desktop: 50 -> 80
-    const duration = isMobile ? 20 : 80;
-    
-    // Create a larger base set (8 items) to ensure it covers wide screens
-    const baseTestimonials = [...testimonials, ...testimonials];
+  const isMobile = useIsMobile();
+  // Increased duration (slower speed) for desktop: 50 -> 80
+  const duration = isMobile ? 20 : 80;
+
+  // Create a larger base set (8 items) to ensure it covers wide screens
+  const baseTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section id="testimonials" className="py-20 sm:py-24 md:py-32 relative overflow-hidden border-t border-gray-200">
+    <section id="testimonials" className="py-20 sm:py-24 md:py-32 relative overflow-hidden border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16"
@@ -57,37 +57,37 @@ const TestimonialsSection: React.FC = () => {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="font-heading text-5xl md:text-7xl">
-            From Our Clients<span className="primary-text text-[1.2em] relative top[-0.05em] ml-1">&gt;</span>
+          <h2 className="font-heading text-5xl md:text-7xl text-black dark:text-white flex items-center justify-center gap-2">
+            From Our Clients<span className="primary-text dark:text-emerald-400 text-[1.2em] leading-none">&gt;</span>
           </h2>
         </motion.div>
       </div>
 
       <div className="w-full overflow-hidden">
         <motion.div
-            className="flex w-fit"
-            animate={{
-                x: ['0%', '-50%'],
-            }}
-            transition={{
-                ease: 'linear',
-                duration: duration,
-                repeat: Infinity,
-            }}
-            style={{ willChange: 'transform' }}
+          className="flex w-fit"
+          animate={{
+            x: ['0%', '-50%'],
+          }}
+          transition={{
+            ease: 'linear',
+            duration: duration,
+            repeat: Infinity,
+          }}
+          style={{ willChange: 'transform' }}
         >
-            {/* First Block */}
-            <div className="flex flex-shrink-0">
-                {baseTestimonials.map((testimonial, index) => (
-                    <TestimonialCard key={`a-${index}`} {...testimonial} />
-                ))}
-            </div>
-            {/* Second Block (Duplicate for Loop) */}
-            <div className="flex flex-shrink-0">
-                {baseTestimonials.map((testimonial, index) => (
-                    <TestimonialCard key={`b-${index}`} {...testimonial} />
-                ))}
-            </div>
+          {/* First Block */}
+          <div className="flex flex-shrink-0">
+            {baseTestimonials.map((testimonial, index) => (
+              <TestimonialCard key={`a-${index}`} {...testimonial} />
+            ))}
+          </div>
+          {/* Second Block (Duplicate for Loop) */}
+          <div className="flex flex-shrink-0">
+            {baseTestimonials.map((testimonial, index) => (
+              <TestimonialCard key={`b-${index}`} {...testimonial} />
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

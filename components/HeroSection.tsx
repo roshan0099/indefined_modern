@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, Variants } from 'framer-motion';
+import { Instagram, Facebook, Linkedin } from 'lucide-react';
 import Button from './ui/Button';
 import { HeroShapeOne, HeroShapeTwo, HeroShapeThree, HeroShapeFour } from './AnimatedDecorations';
 
@@ -79,6 +80,29 @@ const HeroSection: React.FC = () => {
         >
           <Button onClick={() => scrollToSection('#services')} className="w-full sm:w-auto">Our Work</Button>
           <Button onClick={() => scrollToSection('#contact')} variant="secondary" className="w-full sm:w-auto">Contact Us</Button>
+        </motion.div>
+
+        <motion.div
+          className="mt-12 flex gap-6 justify-center items-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.5 }}
+        >
+          <a href="https://www.instagram.com/indefined.info/" target="_blank" rel="noopener noreferrer" className="text-black/70 dark:text-gray-400 hover:text-primary-green dark:hover:text-primary-green transition-colors">
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+              <Instagram size={28} />
+            </motion.div>
+          </a>
+          <a href="https://www.facebook.com/people/Indefined/61560068724566/?ref=PROFILE_EDIT_xav_ig_profile_page_web" target="_blank" rel="noopener noreferrer" className="text-black/70 dark:text-gray-400 hover:text-primary-green dark:hover:text-primary-green transition-colors">
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+              <Facebook size={28} />
+            </motion.div>
+          </a>
+          <a href="https://linkedin.com/company/indefined" target="_blank" rel="noopener noreferrer" className="text-black/70 dark:text-gray-400 hover:text-primary-green dark:hover:text-primary-green transition-colors">
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+              <Linkedin size={28} />
+            </motion.div>
+          </a>
         </motion.div>
       </motion.div>
     </section>

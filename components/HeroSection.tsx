@@ -64,12 +64,12 @@ const HeroSection: React.FC = () => {
           ))}
         </motion.h1>
         <motion.p
-          className="text-md md:text-xl max-w-2xl mx-auto mt-4 text-black/70 dark:text-gray-300"
+          className="text-lg md:text-xl max-w-2xl mx-auto mt-4 text-black/70 dark:text-gray-300"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.5 }}
         >
-          We craft bespoke digital experiences that defy the ordinary and define the future.
+          Defining your digital identity.
         </motion.p>
         <motion.div
           className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center"

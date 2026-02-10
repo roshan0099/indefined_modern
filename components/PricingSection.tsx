@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Button from './ui/Button';
+import ServiceEstimator from './ServiceEstimator';
 
 const tiers = [
   {
@@ -119,6 +120,10 @@ const PricingSection: React.FC = () => {
               </motion.div>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-32">
+          <ServiceEstimator />
         </div>
       </div>
     </section>

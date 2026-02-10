@@ -33,7 +33,7 @@ const Marquee: React.FC<MarqueeProps> = ({ children, speed }) => {
   return (
     <div className="w-full overflow-hidden py-4 border-y border-gray-200 dark:border-gray-800 bg-white dark:bg-dark-bg transition-colors duration-300">
       <motion.div
-        className="flex whitespace-nowrap w-fit"
+        className="flex whitespace-nowrap w-fit transform-gpu"
         animate={{
           x: ['0%', '-50%'],
         }}

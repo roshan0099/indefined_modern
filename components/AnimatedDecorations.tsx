@@ -151,3 +151,38 @@ export const QatarIcon: React.FC<AnimatedDecorationProps> = ({ className }) => {
     </svg>
   );
 };
+
+export const BackgroundGradientOrbs: React.FC = () => {
+  return (
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-[-1] opacity-60">
+      <motion.div
+        className="absolute w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] rounded-full bg-emerald-400/10 dark:bg-emerald-900/20 blur-3xl"
+        animate={{
+          x: ['0vw', '10vw', '-10vw', '0vw'],
+          y: ['0vh', '15vh', '-15vh', '0vh'],
+          scale: [1, 1.2, 0.9, 1],
+        }}
+        transition={{
+          duration: 22,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+        style={{ top: '5%', left: '15%' }}
+      />
+      <motion.div
+        className="absolute w-[45vw] h-[45vw] max-w-[700px] max-h-[700px] rounded-full bg-teal-400/10 dark:bg-teal-900/20 blur-3xl"
+        animate={{
+          x: ['0vw', '-15vw', '15vw', '0vw'],
+          y: ['0vh', '-10vh', '20vh', '0vh'],
+          scale: [1, 0.8, 1.1, 1],
+        }}
+        transition={{
+          duration: 28,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+        style={{ bottom: '10%', right: '5%' }}
+      />
+    </div>
+  );
+};

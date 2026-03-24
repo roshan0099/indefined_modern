@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useRef, useState } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import Input from './ui/Input';
 import Textarea from './ui/Textarea';
 import Button from './ui/Button';
 import { SoundWave } from './AnimatedDecorations';
 
 const ContactSection: React.FC = () => {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+  const waveY = useTransform(scrollYProgress, [0, 1], [65, -65]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [35, -20]);
   const [submitted, setSubmitted] = useState(false);
 
   const formVariants = {
@@ -27,14 +34,24 @@ const ContactSection: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const message = formData.get('message');
+
+    // Redirect to email client
+    window.location.href = `mailto:indefined.info@gmail.com?subject=Contact form submission from ${name}&body=${encodeURIComponent(message as string)}%0A%0A---%0AReply to: ${name} <${email}>`;
+
     setSubmitted(true);
   };
 
   return (
-    <section id="contact" className="py-20 sm:py-24 md:py-32 text-black dark:text-gray-100 relative overflow-hidden border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
-      <SoundWave className="absolute bottom-10 right-10 opacity-30 z-0" />
+    <section ref={sectionRef} id="contact" className="py-28 sm:py-32 md:py-40 text-black dark:text-gray-100 relative overflow-hidden border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
+      <motion.div className="absolute bottom-10 right-10 opacity-30 z-0" style={{ y: waveY }}>
+        <SoundWave />
+      </motion.div>
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
+        <motion.div className="grid md:grid-cols-2 gap-20 md:gap-24 items-center" style={{ y: contentY }}>
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -47,17 +64,17 @@ const ContactSection: React.FC = () => {
             <p className="mt-6 text-black/70 dark:text-gray-400 max-w-md">
               Have a project in mind or just want to say hello? We'd love to hear from you. Fill out the form or reach out to us directly.
             </p>
-            <div className="mt-10 space-y-4 font-body">
+            <div className="mt-12 space-y-5 font-body">
               <p className="text-lg">
-                <span className="font-bold">Email:</span> <a href="mailto:hello@indefined.dev" className="hover:text-primary-green dark:hover:text-emerald-400 transition-colors underline">hello@indefined.dev</a>
+                <span className="font-bold">Email:</span> <a href="mailto:indefined.info@gmail.com" className="hover:text-primary-green dark:hover:text-emerald-400 transition-colors underline">indefined.info@gmail.com</a>
               </p>
               <p className="text-lg">
-                <span className="font-bold">Phone:</span> <a href="tel:+1234567890" className="hover:text-primary-green dark:hover:text-emerald-400 transition-colors underline">+91 00000 00000</a>
+                <span className="font-bold">WhatsApp:</span> <a href="https://wa.me/919061660079" target="_blank" rel="noopener noreferrer" className="hover:text-primary-green dark:hover:text-emerald-400 transition-colors underline">+91 90616 60079</a>
               </p>
             </div>
           </motion.div>
 
-          <div className="min-h-[380px]">
+          <div className="min-h-[440px]">
             <AnimatePresence mode="wait">
               {!submitted ? (
                 <motion.form
@@ -70,13 +87,13 @@ const ContactSection: React.FC = () => {
                   onSubmit={handleSubmit}
                 >
                   <motion.div variants={itemVariants}>
-                    <Input type="text" placeholder="Your Name" required />
+                    <Input type="text" name="name" placeholder="Your Name" required />
                   </motion.div>
                   <motion.div variants={itemVariants}>
-                    <Input type="email" placeholder="Your Email" required />
+                    <Input type="email" name="email" placeholder="Your Email" required />
                   </motion.div>
                   <motion.div variants={itemVariants}>
-                    <Textarea placeholder="Your Message" required />
+                    <Textarea name="message" placeholder="Your Message" required />
                   </motion.div>
                   <motion.div variants={itemVariants}>
                     <Button type="submit" className="w-full">
@@ -97,7 +114,7 @@ const ContactSection: React.FC = () => {
               )}
             </AnimatePresence>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

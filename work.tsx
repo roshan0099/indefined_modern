@@ -1,20 +1,15 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import WorkDisplayPage from './components/WorkDisplayPage';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
-  throw new Error("Could not find root element to mount to");
+  throw new Error('Could not find root element to mount to');
 }
 
 const root = ReactDOM.createRoot(rootElement);
-const normalizedPath = typeof window !== 'undefined' ? window.location.pathname.replace(/\/+$/, '') : '';
-const isWorkPagePath = normalizedPath === '/workpage';
-
 root.render(
   <React.StrictMode>
-    {isWorkPagePath ? <WorkDisplayPage /> : <App />}
+    <WorkDisplayPage />
   </React.StrictMode>
 );

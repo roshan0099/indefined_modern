@@ -130,12 +130,12 @@ const ServiceEstimator: React.FC = () => {
     ];
 
     return (
-        <section className="py-20 bg-white dark:bg-dark-bg transition-colors duration-300">
+        <section className="py-24 sm:py-28 bg-white dark:bg-dark-bg transition-colors duration-300">
             <div className="container mx-auto px-4 max-w-5xl">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    className="text-center mb-12"
+                    className="text-center mb-16"
                 >
                     <h2 className="font-heading text-4xl md:text-5xl mb-4 text-black dark:text-white">
                         Estimate Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-green to-emerald-600 dark:from-emerald-400 dark:to-emerald-600">Project</span>
@@ -144,7 +144,7 @@ const ServiceEstimator: React.FC = () => {
                 </motion.div>
 
                 {/* Category Selector */}
-                <div className="flex flex-wrap justify-center gap-4 mb-12">
+                <div className="flex flex-wrap justify-center gap-4 mb-14">
                     {categories.map((cat) => {
                         const isEnabled = enabledCategories[cat.id as keyof typeof enabledCategories];
                         const isActive = activeCategory === cat.id;

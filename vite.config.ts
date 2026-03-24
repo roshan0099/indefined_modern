@@ -9,6 +9,14 @@ export default defineConfig(({ mode }) => {
         port: 3000,
         host: '0.0.0.0',
       },
+      build: {
+        rollupOptions: {
+          input: {
+            main: path.resolve(__dirname, 'index.html'),
+            workpage: path.resolve(__dirname, 'workpage/index.html'),
+          },
+        },
+      },
       plugins: [react()],
       resolve: {
         alias: {

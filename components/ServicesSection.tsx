@@ -1,6 +1,7 @@
-import React from 'react';
-import { motion, Variants } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, Variants, useScroll, useTransform } from 'framer-motion';
 import { AnimatedPlus } from './AnimatedDecorations';
+import AnimatedHeading from './AnimatedHeading';
 
 const services = [
   {
@@ -43,54 +44,55 @@ const services = [
 ];
 
 const cardVariants: Variants = {
-  offscreen: {
-    y: 50,
-    opacity: 0,
-  },
-  onscreen: {
-    y: 0,
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: {
     opacity: 1,
-    transition: {
-      type: "spring",
-      bounce: 0.4,
-      duration: 0.8
-    }
+    scale: 1,
+    transition: { duration: 0.8, ease: "easeOut" }
   }
 };
 
 
 const ServicesSection: React.FC = () => {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+  const accentsY = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const headingY = useTransform(scrollYProgress, [0, 1], [35, -20]);
+
   return (
-    <section id="services" className="py-20 sm:py-24 md:py-32 relative overflow-hidden">
-      <AnimatedPlus className="absolute top-10 left-10 opacity-50" />
-      <AnimatedPlus className="absolute bottom-24 right-10 opacity-50" />
-      <AnimatedPlus className="absolute top-1/2 left-1/3 opacity-30" />
+    <section ref={sectionRef} id="services" className="py-28 sm:py-32 md:py-40 relative overflow-hidden">
+      <motion.div style={{ y: accentsY }}>
+        <AnimatedPlus className="absolute top-10 left-10 opacity-50" />
+        <AnimatedPlus className="absolute bottom-24 right-10 opacity-50" />
+        <AnimatedPlus className="absolute top-1/2 left-1/3 opacity-30" />
+      </motion.div>
       <div className="container mx-auto px-4">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-24"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5 }}
+          style={{ y: headingY }}
         >
-          <h2 className="font-heading text-5xl md:text-7xl text-black flex items-center justify-center gap-2">
-            What We Create<span className="primary-text text-[1.2em] leading-none">&gt;</span>
-          </h2>
+          <AnimatedHeading 
+            text="What We Create" 
+            Tag="h2" 
+            className="font-heading text-5xl md:text-7xl text-black flex items-center justify-center gap-2"
+          />
         </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12">
           {services.map((service, index) => (
             <motion.div
               key={index}
-              className="border border-gray-200 dark:border-gray-700/50 p-8 group relative bg-white dark:bg-dark-card rounded-2xl shadow-sm transition-all duration-300"
+              className="border border-gray-200 dark:border-gray-700/50 p-10 group relative bg-white dark:bg-dark-card rounded-2xl shadow-sm transition-shadow duration-300 hover:shadow-lg"
               variants={cardVariants}
-              initial="offscreen"
-              whileInView="onscreen"
-              viewport={{ once: true, amount: 0.3 }}
-              whileHover={{
-                y: -5,
-                boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)'
-              }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.3 }}
             >
               <div className="relative z-10">
                 <div className="mb-6 [&>svg]:text-primary-green [&>svg]:dark:text-emerald-400">{service.icon}</div>

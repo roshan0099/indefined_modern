@@ -25,15 +25,16 @@ const FooterBrandLogo: React.FC<{ className?: string }> = ({ className }) => {
 
 const Footer: React.FC = () => {
   return (
-    <footer className="text-black/70 dark:text-gray-400 py-12 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
-      <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-        <div className="mb-4 md:mb-0">
+    <footer className="text-black/70 dark:text-gray-400 py-16 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
+      <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-6">
+        <div>
           <FooterBrandLogo />
         </div>
-        <div className="flex space-x-6 mb-4 md:mb-0 font-heading tracking-wider">
+        <div className="flex space-x-7 font-heading tracking-wider">
           <a href="#home" className="hover:text-primary-green dark:hover:text-emerald-400 transition-colors">Home</a>
           <a href="#about" className="hover:text-primary-green dark:hover:text-emerald-400 transition-colors">About</a>
           <a href="#services" className="hover:text-primary-green dark:hover:text-emerald-400 transition-colors">Services</a>
+          <a href="/workpage/" className="hover:text-primary-green dark:hover:text-emerald-400 transition-colors">Works</a>
           <a href="#contact" className="hover:text-primary-green dark:hover:text-emerald-400 transition-colors">Contact</a>
         </div>
         <div>

@@ -6,6 +6,7 @@ const navLinks = [
   { name: 'Home', href: '#home' },
   { name: 'About', href: '#about' },
   { name: 'Services', href: '#services' },
+  { name: 'Works', href: '/workpage/' },
   { name: 'Pricing', href: '#pricing' },
   { name: 'Contact', href: '#contact' },
 ];
@@ -57,6 +58,16 @@ const Header: React.FC = () => {
     }
   };
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    if (href.startsWith('#')) {
+      scrollToSection(href);
+      return;
+    }
+    setIsOpen(false);
+    window.location.href = href;
+  };
+
   const menuVariants = {
     closed: { opacity: 0, scale: 0.95 },
     open: { opacity: 1, scale: 1 },
@@ -88,7 +99,7 @@ const Header: React.FC = () => {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className="font-heading tracking-wider text-black dark:text-gray-200 hover:text-primary-green dark:hover:text-emerald-400 transition-colors"
                 >
                   {link.name}
@@ -109,8 +120,9 @@ const Header: React.FC = () => {
             </button>
 
             <a
-              href="#contact"
-              onClick={(e) => { e.preventDefault(); scrollToSection('#contact'); }}
+              href="https://wa.me/919061660079"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hidden md:inline-block px-6 py-2 font-heading text-md tracking-wider uppercase rounded-full transition-all duration-300 border-2 border-primary-green text-primary-green hover:bg-primary-green hover:text-white dark:border-emerald-500 dark:text-emerald-400 dark:hover:bg-emerald-600 dark:hover:text-white"
             >
               Let's Talk
@@ -150,7 +162,7 @@ const Header: React.FC = () => {
               <motion.a
                 key={link.name}
                 href={link.href}
-                onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="font-heading text-4xl tracking-wider text-black dark:text-white hover:text-primary-green dark:hover:text-emerald-400 transition-colors"
                 variants={navItemVariants}
                 initial="closed"

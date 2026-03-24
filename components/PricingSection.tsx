@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Button from './ui/Button';
 import ServiceEstimator from './ServiceEstimator';
 
@@ -62,15 +62,33 @@ const listVariants = {
 }
 
 const PricingSection: React.FC = () => {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+  const glowTopY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+  const glowBottomY = useTransform(scrollYProgress, [0, 1], [-60, 60]);
+  const headingY = useTransform(scrollYProgress, [0, 1], [35, -20]);
+
   return (
-    <section id="pricing" className="py-20 sm:py-24 md:py-32 relative overflow-hidden border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
+    <section ref={sectionRef} id="pricing" className="py-28 sm:py-32 md:py-40 relative overflow-hidden border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
+      <motion.div
+        className="pointer-events-none absolute -top-24 -left-16 w-[320px] h-[320px] rounded-full bg-gradient-to-br from-primary-green/15 to-emerald-400/5 blur-3xl"
+        style={{ y: glowTopY }}
+      />
+      <motion.div
+        className="pointer-events-none absolute -bottom-24 -right-10 w-[300px] h-[300px] rounded-full bg-gradient-to-br from-emerald-400/10 to-primary-green/5 blur-3xl"
+        style={{ y: glowBottomY }}
+      />
       <div className="container mx-auto px-4 z-10 relative">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-24"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5 }}
+          style={{ y: headingY }}
         >
           <h2 className="font-heading text-5xl md:text-7xl text-black dark:text-white flex items-center justify-center gap-2">
             Pricing<span className="primary-text dark:text-emerald-400 text-[1.2em] leading-none">&gt;</span>
@@ -79,11 +97,11 @@ const PricingSection: React.FC = () => {
             Transparent pricing for projects of all sizes. No hidden fees, just pure value.
           </p>
         </motion.div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-6xl mx-auto items-stretch">
           {tiers.map((tier, index) => (
             <motion.div
               key={index}
-              className={`p-8 flex flex-col relative rounded-2xl bg-white dark:bg-dark-card ${tier.popular ? 'border-2 border-primary-green dark:border-emerald-500 shadow-xl' : 'border border-gray-200 dark:border-gray-700/50 shadow-sm'}`}
+              className={`p-10 flex flex-col relative rounded-2xl bg-white dark:bg-dark-card ${tier.popular ? 'border-2 border-primary-green dark:border-emerald-500 shadow-xl' : 'border border-gray-200 dark:border-gray-700/50 shadow-sm'}`}
               variants={cardVariants}
               initial="offscreen"
               whileInView="onscreen"
@@ -122,7 +140,7 @@ const PricingSection: React.FC = () => {
           ))}
         </div>
 
-        <div className="mt-32">
+        <div className="mt-40">
           <ServiceEstimator />
         </div>
       </div>

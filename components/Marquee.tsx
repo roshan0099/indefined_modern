@@ -9,8 +9,7 @@ interface MarqueeProps {
 
 const Marquee: React.FC<MarqueeProps> = ({ children, speed }) => {
   const isMobile = useIsMobile();
-  // Increased duration (slower speed) for desktop: 40 -> 60
-  const animationSpeed = speed ?? (isMobile ? 20 : 60);
+  const animationSpeed = speed ?? (isMobile ? 26 : 70);
 
   // Repeat the children 4 times in each block to ensure adequate width even with short text
   const repetitions = Array(4).fill(null);

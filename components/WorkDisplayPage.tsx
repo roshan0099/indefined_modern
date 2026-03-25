@@ -166,7 +166,7 @@ const WorkDisplayPage: React.FC = () => {
   };
 
   return (
-    <div className="font-body bg-white dark:bg-dark-bg text-black dark:text-gray-100 min-h-screen relative overflow-x-hidden transition-colors duration-300">
+    <div className="font-body bg-white dark:bg-dark-bg text-black dark:text-gray-100 min-h-screen relative overflow-clip transition-colors duration-300">
       <GreenLightParticles />
       <BackgroundGradientOrbs />
 

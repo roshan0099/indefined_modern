@@ -140,9 +140,11 @@ const PricingSection: React.FC = () => {
           ))}
         </div>
 
+        {/*
         <div className="mt-40">
           <ServiceEstimator />
         </div>
+        */}
       </div>
     </section>
   );

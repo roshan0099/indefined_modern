@@ -4,6 +4,7 @@ import Input from './ui/Input';
 import Textarea from './ui/Textarea';
 import Button from './ui/Button';
 import { SoundWave } from './AnimatedDecorations';
+import PixelBlast from './PixelBlast';
 
 const ContactSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -47,7 +48,25 @@ const ContactSection: React.FC = () => {
 
   return (
     <section ref={sectionRef} id="contact" className="py-28 sm:py-32 md:py-40 text-black dark:text-gray-100 relative overflow-hidden border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
-      <motion.div className="absolute bottom-10 right-10 opacity-30 z-0" style={{ y: waveY }}>
+      <div className="absolute inset-0 z-0 flex items-center justify-center opacity-70">
+        <div style={{ width: '1080px', height: '1080px', position: 'relative' }}>
+          <PixelBlast
+            variant="square"
+            pixelSize={4}
+            color="#4d5c4f"
+            patternScale={2}
+            patternDensity={1}
+            enableRipples
+            rippleSpeed={0.3}
+            rippleThickness={0.1}
+            rippleIntensityScale={1}
+            speed={0.5}
+            transparent
+            edgeFade={0.25}
+          />
+        </div>
+      </div>
+      <motion.div className="absolute bottom-10 right-10 opacity-30 z-[1]" style={{ y: waveY }}>
         <SoundWave />
       </motion.div>
       <div className="container mx-auto px-4 relative z-10">

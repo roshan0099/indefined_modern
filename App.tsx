@@ -11,13 +11,11 @@ import Marquee from './components/Marquee';
 import ServingRegionsSection from './components/ServingRegionsSection';
 import TestimonialsSection from './components/TestimonialsSection';
 import BackToTopButton from './components/BackToTopButton';
-import GreenLightParticles from './components/GreenLightParticles';
 import { BackgroundGradientOrbs } from './components/AnimatedDecorations';
 
 const App: React.FC = () => {
   return (
-    <div className="font-body bg-white dark:bg-dark-bg text-black dark:text-gray-100 relative overflow-x-hidden transition-colors duration-300">
-      <GreenLightParticles />
+    <div className="font-body bg-white dark:bg-dark-bg text-black dark:text-gray-100 relative overflow-clip transition-colors duration-300">
       <BackgroundGradientOrbs />
       <Header />
       <main className="relative z-10">

@@ -9,8 +9,7 @@ const extendedRegions = Array(5).fill(regions).flat();
 
 const ServingRegionsSection: React.FC = () => {
   const isMobile = useIsMobile();
-  // Increased duration (slower speed) for desktop: 30 -> 45
-  const duration = isMobile ? 15 : 45;
+  const duration = isMobile ? 26 : 70;
 
   return (
     <section className="overflow-hidden bg-gray-50 dark:bg-dark-bg transition-colors duration-300">

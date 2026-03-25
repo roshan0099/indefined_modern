@@ -3,6 +3,7 @@ import { motion, Variants, useScroll, useTransform } from 'framer-motion';
 import { Instagram, Facebook, Linkedin } from 'lucide-react';
 import Button from './ui/Button';
 import { HeroShapeOne, HeroShapeTwo, HeroShapeThree, HeroShapeFour } from './AnimatedDecorations';
+import LightRays from './LightRays';
 
 const HeroSection: React.FC = () => {
   const heroRef = useRef<HTMLElement | null>(null);
@@ -50,6 +51,25 @@ const HeroSection: React.FC = () => {
         <HeroShapeTwo custom={6} className="absolute top-[30%] left-[40%] !w-8 !h-8" />
         <HeroShapeFour custom={7} className="absolute bottom-[10%] left-[50%]" />
       </motion.div>
+
+      <div className="absolute inset-0 z-[1] pointer-events-none">
+        <div className="w-full h-full relative opacity-90">
+          <LightRays
+            raysOrigin="top-center"
+            raysColor="#059e0f"
+            raysSpeed={1}
+            lightSpread={0.5}
+            rayLength={3}
+            pulsating={false}
+            fadeDistance={1}
+            saturation={1}
+            followMouse
+            mouseInfluence={0.1}
+            noiseAmount={0}
+            distortion={0}
+          />
+        </div>
+      </div>
 
       <motion.div
         className="text-center z-10 p-4 md:p-6"

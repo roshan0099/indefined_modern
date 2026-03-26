@@ -63,7 +63,7 @@ const ServicesSection: React.FC = () => {
   const headingY = useTransform(scrollYProgress, [0, 1], [35, -20]);
 
   return (
-    <section ref={sectionRef} id="services" className="py-28 sm:py-32 md:py-40 relative overflow-hidden">
+    <section ref={sectionRef} id="services" className="py-24 sm:py-32 md:py-48 relative overflow-hidden">
       <motion.div style={{ y: accentsY }}>
         <AnimatedPlus className="absolute top-10 left-10 opacity-50" />
         <AnimatedPlus className="absolute bottom-24 right-10 opacity-50" />

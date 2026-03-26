@@ -1,6 +1,6 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import useIsMobile from '../hooks/useIsMobile';
+import LogoLoop, { LogoItem } from './ui/LogoLoop';
 
 interface MarqueeProps {
   children: React.ReactNode;
@@ -9,47 +9,26 @@ interface MarqueeProps {
 
 const Marquee: React.FC<MarqueeProps> = ({ children, speed }) => {
   const isMobile = useIsMobile();
-  const animationSpeed = speed ?? (isMobile ? 26 : 70);
-
-  // Repeat the children 4 times in each block to ensure adequate width even with short text
-  const repetitions = Array(4).fill(null);
-
-  const renderContent = () => (
-    <>
-      {repetitions.map((_, i) => (
-        <React.Fragment key={i}>
-          {React.Children.map(children, (child, childIndex) => (
-            <div key={`${i}-${childIndex}`} className="mx-8 font-heading text-2xl tracking-widest flex items-center text-gray-400 dark:text-gray-600">
-              {child}
-              <span className="primary-text dark:text-emerald-500 mx-8">&gt;</span>
-            </div>
-          ))}
-        </React.Fragment>
-      ))}
-    </>
-  );
+  
+  const logoItems: LogoItem[] = React.Children.map(children, (child) => ({
+    node: child
+  })) || [];
 
   return (
     <div className="w-full overflow-hidden py-4 border-y border-gray-200 dark:border-gray-800 bg-white dark:bg-dark-bg transition-colors duration-300">
-      <motion.div
-        className="flex whitespace-nowrap w-fit transform-gpu"
-        animate={{
-          x: ['0%', '-50%'],
-        }}
-        transition={{
-          duration: animationSpeed,
-          ease: 'linear',
-          repeat: Infinity,
-        }}
-        style={{ willChange: 'transform' }}
-      >
-        <div className="flex-shrink-0 flex items-center">
-          {renderContent()}
-        </div>
-        <div className="flex-shrink-0 flex items-center" aria-hidden="true">
-          {renderContent()}
-        </div>
-      </motion.div>
+      <LogoLoop
+        logos={logoItems}
+        speed={speed ?? (isMobile ? 35 : 25)}
+        direction="left"
+        logoHeight={32}
+        gap={0} 
+        renderItem={(item, key) => (
+          <div key={key} className="mx-8 font-heading text-2xl tracking-widest flex items-center text-gray-400 dark:text-gray-600">
+            {item.node}
+            <span className="primary-text dark:text-emerald-500 mx-8">&gt;</span>
+          </div>
+        )}
+      />
     </div>
   );
 };

@@ -41,7 +41,7 @@ const HeroSection: React.FC = () => {
   };
 
   return (
-    <section ref={heroRef} id="home" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-28 md:py-36 bg-white dark:bg-dark-bg transition-colors duration-300">
+    <section ref={heroRef} id="home" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-36 md:py-48 bg-white dark:bg-dark-bg transition-colors duration-300">
       <motion.div className="absolute top-0 left-0 w-full h-full opacity-50 z-0" style={{ y: shapesY, rotate: shapesRotate }}>
         <HeroShapeOne custom={1} className="absolute top-[10%] left-[10%]" />
         <HeroShapeTwo custom={2} className="absolute bottom-[15%] right-[12%]" />

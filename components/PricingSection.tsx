@@ -72,7 +72,7 @@ const PricingSection: React.FC = () => {
   const headingY = useTransform(scrollYProgress, [0, 1], [35, -20]);
 
   return (
-    <section ref={sectionRef} id="pricing" className="py-28 sm:py-32 md:py-40 relative overflow-hidden border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
+    <section ref={sectionRef} id="pricing" className="py-24 sm:py-32 md:py-48 relative overflow-hidden border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
       <motion.div
         className="pointer-events-none absolute -top-24 -left-16 w-[320px] h-[320px] rounded-full bg-gradient-to-br from-primary-green/15 to-emerald-400/5 blur-3xl"
         style={{ y: glowTopY }}

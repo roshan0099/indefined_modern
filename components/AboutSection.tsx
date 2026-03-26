@@ -32,7 +32,7 @@ const AboutSection: React.FC = () => {
     };
 
     return (
-        <section ref={sectionRef} id="about" className="py-28 sm:py-32 md:py-40 overflow-hidden relative border-y border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
+        <section ref={sectionRef} id="about" className="py-24 sm:py-32 md:py-48 overflow-hidden relative border-y border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
             <motion.div className="absolute -top-16 -left-16 z-0 opacity-20 dark:opacity-10" style={{ y: gridTopY }}>
                 <PulsingGrid />
             </motion.div>

@@ -47,9 +47,9 @@ const ContactSection: React.FC = () => {
   };
 
   return (
-    <section ref={sectionRef} id="contact" className="py-28 sm:py-32 md:py-40 text-black dark:text-gray-100 relative overflow-hidden border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
-      <div className="absolute inset-0 z-0 flex items-center justify-center opacity-70">
-        <div style={{ width: '1080px', height: '1080px', position: 'relative' }}>
+    <section ref={sectionRef} id="contact" className="py-24 sm:py-32 md:py-48 text-black dark:text-gray-100 relative overflow-hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-dark-bg transition-colors duration-300">
+      <div className="absolute inset-0 z-0 opacity-70">
+        <div className="w-full h-full relative">
           <PixelBlast
             variant="square"
             pixelSize={4}
@@ -66,7 +66,8 @@ const ContactSection: React.FC = () => {
           />
         </div>
       </div>
-      <motion.div className="absolute bottom-10 right-10 opacity-30 z-[1]" style={{ y: waveY }}>
+      <div className="absolute inset-0 z-[1] pointer-events-none bg-white/75 dark:bg-dark-bg/70" />
+      <motion.div className="absolute bottom-10 right-10 opacity-30 z-[2]" style={{ y: waveY }}>
         <SoundWave />
       </motion.div>
       <div className="container mx-auto px-4 relative z-10">

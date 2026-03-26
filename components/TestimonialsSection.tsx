@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import useIsMobile from '../hooks/useIsMobile';
-import LogoLoop from './ui/LogoLoop';
+import SmoothTicker from './ui/SmoothTicker';
 
 const testimonials = [
   {
@@ -53,27 +53,21 @@ const TestimonialCard: React.FC<{ name: string; company: string; quote: string; 
 
 const TestimonialsSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-  const headingY = useTransform(scrollYProgress, [0, 1], [30, -25]);
   const isMobile = useIsMobile();
 
-  const testimonialItems = testimonials.map(t => ({
-    node: <TestimonialCard {...t} />
-  }));
+  const testimonialItems = testimonials.map((testimonial) => (
+    <TestimonialCard key={testimonial.name} {...testimonial} />
+  ));
 
   return (
     <section ref={sectionRef} id="testimonials" className="py-24 sm:py-32 md:py-48 relative overflow-hidden border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-24"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -40, y: 24 }}
+          whileInView={{ opacity: 1, x: 0, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.5 }}
-          style={{ y: headingY }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
           <h2 className="font-heading text-5xl md:text-7xl text-black dark:text-white flex items-center justify-center gap-2">
             Client Reviews<span className="primary-text dark:text-emerald-400 text-[1.2em] leading-none">&gt;</span>
@@ -85,16 +79,10 @@ const TestimonialsSection: React.FC = () => {
       </div>
 
       <div className="w-full overflow-hidden py-10">
-        <LogoLoop
-          logos={testimonialItems}
-          speed={isMobile ? 40 : 30}
-          direction="left"
-          gap={0}
-          pauseOnHover={true}
-          logoHeight={350} // Enough height to encompass cards
-          renderItem={(item, key) => (
-            <React.Fragment key={key}>{item.node}</React.Fragment>
-          )}
+        <SmoothTicker
+          items={testimonialItems}
+          duration={isMobile ? 48 : 76}
+          pauseOnHover
         />
       </div>
     </section>

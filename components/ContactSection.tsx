@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Input from './ui/Input';
 import Textarea from './ui/Textarea';
 import Button from './ui/Button';
@@ -8,12 +8,6 @@ import PixelBlast from './PixelBlast';
 
 const ContactSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-  const waveY = useTransform(scrollYProgress, [0, 1], [65, -65]);
-  const contentY = useTransform(scrollYProgress, [0, 1], [35, -20]);
   const [submitted, setSubmitted] = useState(false);
 
   const formVariants = {
@@ -67,16 +61,16 @@ const ContactSection: React.FC = () => {
         </div>
       </div>
       <div className="absolute inset-0 z-[1] pointer-events-none bg-white/75 dark:bg-dark-bg/70" />
-      <motion.div className="absolute bottom-10 right-10 opacity-30 z-[2]" style={{ y: waveY }}>
+      <motion.div className="absolute bottom-10 right-10 opacity-30 z-[2]">
         <SoundWave />
       </motion.div>
       <div className="container mx-auto px-4 relative z-10">
-        <motion.div className="grid md:grid-cols-2 gap-20 md:gap-24 items-center" style={{ y: contentY }}>
+        <motion.div className="grid md:grid-cols-2 gap-20 md:gap-24 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
           >
             <h2 className="font-heading text-5xl md:text-7xl text-black dark:text-white flex items-center gap-2">
               Let's Talk<span className="primary-text dark:text-emerald-400 text-[1.2em] leading-none">&gt;</span>
@@ -94,7 +88,13 @@ const ContactSection: React.FC = () => {
             </div>
           </motion.div>
 
-          <div className="min-h-[440px]">
+          <motion.div
+            className="min-h-[440px]"
+            initial={{ opacity: 0, x: 56 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          >
             <AnimatePresence mode="wait">
               {!submitted ? (
                 <motion.form
@@ -133,7 +133,7 @@ const ContactSection: React.FC = () => {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

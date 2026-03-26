@@ -1,8 +1,67 @@
-@keyframes seamless-marquee {
+@keyframes smooth-ticker-scroll {
   from {
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.smooth-ticker-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: layout paint;
+  transform: translate3d(0, 0, 0);
+  animation: smooth-ticker-scroll var(--ticker-duration, 45s) linear infinite;
+}
+
+.smooth-ticker-group {
+  display: flex;
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .smooth-ticker-track {
+    animation: none;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes service-marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.service-marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: layout paint;
+  transform: translate3d(0, 0, 0);
+  animation: service-marquee-scroll var(--service-marquee-duration, 58s) linear infinite;
+}
+
+.service-marquee-group {
+  display: flex;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .service-marquee-track {
+    animation-duration: 42s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-marquee-track {
+    animation: none;
+    transform: translate3d(0, 0, 0);
   }
 }

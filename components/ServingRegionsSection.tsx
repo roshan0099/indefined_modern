@@ -1,36 +1,26 @@
 import React from 'react';
 import useIsMobile from '../hooks/useIsMobile';
-import LogoLoop from './ui/LogoLoop';
+import SmoothTicker from './ui/SmoothTicker';
 
 const regions = ['USA', 'India', 'Qatar'];
 
 const ServingRegionsSection: React.FC = () => {
   const isMobile = useIsMobile();
+  const repeatedRegions = Array.from({ length: 8 }, (_, index) => regions[index % regions.length]);
 
-  const logoItems = regions.map((region) => ({
-    node: (
-      <div className="flex items-center">
-        <span className="mx-10 font-heading text-3xl md:text-5xl tracking-widest uppercase text-gray-300 dark:text-gray-700">
-          {region}
-        </span>
-        <span className="primary-text text-3xl md:text-5xl font-heading">&gt;</span>
-      </div>
-    )
-  }));
+  const items = repeatedRegions.map((region, index) => (
+    <div key={`${region}-${index}`} className="flex items-center whitespace-nowrap">
+      <span className="font-heading text-3xl md:text-5xl tracking-widest uppercase text-gray-300 dark:text-gray-700">
+        {region}
+      </span>
+      <span className="primary-text text-3xl md:text-5xl font-heading ml-6">&gt;</span>
+    </div>
+  ));
 
   return (
     <section className="overflow-hidden bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
       <div className="py-4 md:py-6">
-        <LogoLoop
-          logos={logoItems}
-          speed={isMobile ? 35 : 25}
-          direction="left"
-          gap={0}
-          logoHeight={50} // enough for text-5xl
-          renderItem={(item, key) => (
-            <React.Fragment key={key}>{item.node}</React.Fragment>
-          )}
-        />
+        <SmoothTicker items={items} duration={isMobile ? 45 : 65} groupClassName="gap-20 items-center" />
       </div>
     </section>
   );

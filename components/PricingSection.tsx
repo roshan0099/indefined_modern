@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Button from './ui/Button';
-import ServiceEstimator from './ServiceEstimator';
 
 const tiers = [
   {
@@ -29,32 +28,50 @@ const tiers = [
 ];
 
 const cardVariants = {
-  offscreen: {
-    y: 50,
-    opacity: 0,
+  hidden: (index: number = 0) => {
+    const directions = [
+      { x: -72, y: 0 },
+      { x: 0, y: 72 },
+      { x: 72, y: 0 },
+      { x: 0, y: -72 },
+    ];
+    const direction = directions[index % directions.length];
+    return {
+      opacity: 0,
+      scale: 0.96,
+      ...direction,
+    };
   },
-  onscreen: {
+  visible: {
+    x: 0,
     y: 0,
     opacity: 1,
+    scale: 1,
     transition: {
       staggerChildren: 0.1,
+      duration: 0.9,
+      ease: [0.22, 1, 0.36, 1],
     }
   }
 };
 
 const itemVariants = {
-  offscreen: {
+  hidden: {
     y: 20,
     opacity: 0,
   },
-  onscreen: {
+  visible: {
     y: 0,
     opacity: 1,
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
+    }
   }
 };
 
 const listVariants = {
-  onscreen: {
+  visible: {
     transition: {
       staggerChildren: 0.1
     }
@@ -63,32 +80,22 @@ const listVariants = {
 
 const PricingSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-  const glowTopY = useTransform(scrollYProgress, [0, 1], [60, -60]);
-  const glowBottomY = useTransform(scrollYProgress, [0, 1], [-60, 60]);
-  const headingY = useTransform(scrollYProgress, [0, 1], [35, -20]);
 
   return (
     <section ref={sectionRef} id="pricing" className="py-24 sm:py-32 md:py-48 relative overflow-hidden border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
       <motion.div
         className="pointer-events-none absolute -top-24 -left-16 w-[320px] h-[320px] rounded-full bg-gradient-to-br from-primary-green/15 to-emerald-400/5 blur-3xl"
-        style={{ y: glowTopY }}
       />
       <motion.div
         className="pointer-events-none absolute -bottom-24 -right-10 w-[300px] h-[300px] rounded-full bg-gradient-to-br from-emerald-400/10 to-primary-green/5 blur-3xl"
-        style={{ y: glowBottomY }}
       />
       <div className="container mx-auto px-4 z-10 relative">
         <motion.div
           className="text-center mb-24"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 36 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.5 }}
-          style={{ y: headingY }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
           <h2 className="font-heading text-5xl md:text-7xl text-black dark:text-white flex items-center justify-center gap-2">
             Pricing<span className="primary-text dark:text-emerald-400 text-[1.2em] leading-none">&gt;</span>
@@ -102,9 +109,10 @@ const PricingSection: React.FC = () => {
             <motion.div
               key={index}
               className={`p-10 flex flex-col relative rounded-2xl bg-white dark:bg-dark-card ${tier.popular ? 'border-2 border-primary-green dark:border-emerald-500 shadow-xl' : 'border border-gray-200 dark:border-gray-700/50 shadow-sm'}`}
+              custom={index}
               variants={cardVariants}
-              initial="offscreen"
-              whileInView="onscreen"
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
               whileHover={{
                 y: -8,

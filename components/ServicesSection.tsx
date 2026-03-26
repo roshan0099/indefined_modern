@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, Variants, useScroll, useTransform } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { AnimatedPlus } from './AnimatedDecorations';
 import AnimatedHeading from './AnimatedHeading';
 
@@ -44,39 +44,43 @@ const services = [
 ];
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.95 },
+  hidden: (index: number = 0) => {
+    const directions = [
+      { x: -68, y: 0 },
+      { x: 68, y: 0 },
+      { x: 0, y: 68 },
+      { x: 0, y: -68 },
+    ];
+    const direction = directions[index % directions.length];
+    return { opacity: 0, scale: 0.96, ...direction };
+  },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.8, ease: "easeOut" }
+    x: 0,
+    y: 0,
+    transition: { duration: 0.88, ease: [0.22, 1, 0.36, 1] }
   }
 };
 
 
 const ServicesSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-  const accentsY = useTransform(scrollYProgress, [0, 1], [50, -50]);
-  const headingY = useTransform(scrollYProgress, [0, 1], [35, -20]);
 
   return (
     <section ref={sectionRef} id="services" className="py-24 sm:py-32 md:py-48 relative overflow-hidden">
-      <motion.div style={{ y: accentsY }}>
+      <div>
         <AnimatedPlus className="absolute top-10 left-10 opacity-50" />
         <AnimatedPlus className="absolute bottom-24 right-10 opacity-50" />
         <AnimatedPlus className="absolute top-1/2 left-1/3 opacity-30" />
-      </motion.div>
+      </div>
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-24"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 36 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.5 }}
-          style={{ y: headingY }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
           <AnimatedHeading 
             text="What We Create" 
@@ -89,6 +93,7 @@ const ServicesSection: React.FC = () => {
             <motion.div
               key={index}
               className="border border-gray-200 dark:border-gray-700/50 p-10 group relative bg-white dark:bg-dark-card rounded-2xl shadow-sm transition-shadow duration-300 hover:shadow-lg"
+              custom={index}
               variants={cardVariants}
               initial="hidden"
               whileInView="visible"

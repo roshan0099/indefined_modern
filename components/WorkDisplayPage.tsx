@@ -5,6 +5,8 @@ import BrandLogo from './BrandLogo';
 import BackToTopButton from './BackToTopButton';
 import { HeroShapeOne, HeroShapeTwo, HeroShapeThree, HeroShapeFour, BackgroundGradientOrbs } from './AnimatedDecorations';
 import GreenLightParticles from './GreenLightParticles';
+import epLogo from '../assets/ep_logo.jpeg';
+import milisysLogo from '../assets/milisys_logo.jpeg';
 import dunesLogo from '../assets/dunes_logo.jpeg';
 import nokLogo from '../assets/nok_logo.jpeg';
 import paintLogo from '../assets/paint_logo.jpeg';
@@ -66,6 +68,12 @@ const workCategories: WorkCategory[] = [
 
 const websiteWorks: WebsiteWork[] = [
   {
+    name: 'Get Digital X Demo',
+    url: 'https://getdigitalxdemo.indefined.info/',
+    summary: 'A modern, high-performance interactive demonstration platform showcasing our digital capabilities.',
+    stack: ['Interactive Demo', 'Modern UI', 'Framer Motion'],
+  },
+  {
     name: 'Ultra Glide Automotive',
     url: 'https://www.ultraglideautomotive.com/',
     summary: 'Automotive-focused website experience with clear service pathways and strong brand tone.',
@@ -83,6 +91,8 @@ const logoWorks: LogoWork[] = [
   { name: 'DUNES', src: dunesLogo },
   { name: 'NOK', src: nokLogo },
   { name: 'PAINT', src: paintLogo },
+  { name: 'EP', src: epLogo },
+  { name: 'MILISYS', src: milisysLogo },
 ];
 
 const WorkDisplayPage: React.FC = () => {

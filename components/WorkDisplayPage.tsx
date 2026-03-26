@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, Globe2, Moon, Newspaper, PenTool, SearchCheck, Sun } from 'lucide-react';
 import BrandLogo from './BrandLogo';
 import BackToTopButton from './BackToTopButton';
 import { HeroShapeOne, HeroShapeTwo, HeroShapeThree, HeroShapeFour, BackgroundGradientOrbs } from './AnimatedDecorations';
-import GreenLightParticles from './GreenLightParticles';
 import epLogo from '../assets/ep_logo.jpeg';
 import milisysLogo from '../assets/milisys_logo.jpeg';
 import dunesLogo from '../assets/dunes_logo.jpeg';
@@ -85,6 +84,12 @@ const websiteWorks: WebsiteWork[] = [
     summary: 'Ecommerce-forward storefront with a simple buying journey and modern product presentation.',
     stack: ['Storefront UX', 'Mobile-first layout', 'Conversion-driven flow'],
   },
+  {
+    name: 'Ananthu & Dhanu',
+    url: 'https://ananthuanddhanu.indefined.info/',
+    summary: 'A focused event-style experience with elegant storytelling and polished responsive layout.',
+    stack: ['Event Website', 'Responsive Layout', 'Clean Visual Flow'],
+  },
 ];
 
 const logoWorks: LogoWork[] = [
@@ -95,27 +100,18 @@ const logoWorks: LogoWork[] = [
   { name: 'MILISYS', src: milisysLogo },
 ];
 
+const logoBentoClasses = [
+  'lg:col-span-2 lg:row-span-2',
+  'lg:col-span-2 lg:row-span-1',
+  'lg:col-span-1 lg:row-span-1',
+  'lg:col-span-1 lg:row-span-1',
+  'lg:col-span-2 lg:row-span-1',
+];
+
 const WorkDisplayPage: React.FC = () => {
   const heroRef = useRef<HTMLElement | null>(null);
   const categoriesRef = useRef<HTMLElement | null>(null);
   const websitesRef = useRef<HTMLElement | null>(null);
-  const { scrollYProgress: heroProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  });
-  const { scrollYProgress: categoriesProgress } = useScroll({
-    target: categoriesRef,
-    offset: ['start end', 'end start'],
-  });
-  const { scrollYProgress: websitesProgress } = useScroll({
-    target: websitesRef,
-    offset: ['start end', 'end start'],
-  });
-  const heroShapesY = useTransform(heroProgress, [0, 1], [0, 120]);
-  const heroContentY = useTransform(heroProgress, [0, 1], [0, 70]);
-  const heroContentOpacity = useTransform(heroProgress, [0, 1], [1, 0.5]);
-  const categoriesHeadingY = useTransform(categoriesProgress, [0, 1], [35, -25]);
-  const websitesHeadingY = useTransform(websitesProgress, [0, 1], [35, -25]);
 
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -177,7 +173,6 @@ const WorkDisplayPage: React.FC = () => {
 
   return (
     <div className="font-body bg-white dark:bg-dark-bg text-black dark:text-gray-100 min-h-screen relative overflow-clip transition-colors duration-300">
-      <GreenLightParticles />
       <BackgroundGradientOrbs />
 
       <motion.header
@@ -268,13 +263,13 @@ const WorkDisplayPage: React.FC = () => {
 
       <main className="relative z-10 pt-28">
         <section ref={heroRef} className="relative min-h-[80vh] flex items-center overflow-hidden py-24 sm:py-32 md:py-40">
-          <motion.div className="absolute top-0 left-0 w-full h-full opacity-50 z-0" style={{ y: heroShapesY }}>
+          <motion.div className="absolute top-0 left-0 w-full h-full opacity-50 z-0">
             <HeroShapeOne custom={1} className="absolute top-[12%] left-[8%]" />
             <HeroShapeTwo custom={2} className="absolute bottom-[18%] right-[10%]" />
             <HeroShapeThree custom={3} className="absolute top-[14%] right-[16%]" />
             <HeroShapeFour custom={4} className="absolute bottom-[24%] left-[20%]" />
           </motion.div>
-          <motion.div className="container mx-auto px-4 relative z-10" style={{ y: heroContentY, opacity: heroContentOpacity }}>
+          <motion.div className="container mx-auto px-4 relative z-10">
             <motion.h1
               className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-black dark:text-white leading-tight"
               initial={{ opacity: 0, y: 25 }}
@@ -317,7 +312,6 @@ const WorkDisplayPage: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.45 }}
-              style={{ y: categoriesHeadingY }}
             >
               <AnimatedHeading 
                 text="Core Work Streams" 
@@ -352,49 +346,6 @@ const WorkDisplayPage: React.FC = () => {
               ))}
             </div>
 
-            <motion.div
-              id="logo-showcase"
-              className="mt-20"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.45 }}
-            >
-              <AnimatedHeading 
-                text="Logo Showcase" 
-                Tag="h3" 
-                className="font-heading text-3xl md:text-4xl text-black dark:text-white flex items-center gap-2"
-              />
-              <p className="mt-3 text-black/70 dark:text-gray-400 max-w-2xl">
-                Recent logo marks from our branding work, presented in a clean gallery format.
-              </p>
-
-              <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {logoWorks.map((logo, index) => (
-                  <motion.figure
-                    key={logo.name}
-                    className="group rounded-2xl border border-gray-200 dark:border-gray-700/50 bg-white dark:bg-dark-card shadow-sm overflow-hidden"
-                    initial={{ opacity: 0, y: 18 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false, amount: 0.2 }}
-                    transition={{ duration: 0.45, delay: index * 0.08 }}
-                    whileHover={{ y: -4, boxShadow: '0 14px 24px -10px rgb(0 0 0 / 0.2)' }}
-                  >
-                    <div className="aspect-[4/3] bg-gradient-to-br from-white via-emerald-50/30 to-white dark:from-slate-900 dark:via-emerald-900/20 dark:to-slate-900 p-6">
-                      <img
-                        src={logo.src}
-                        alt={`${logo.name} logo`}
-                        className="w-full h-full object-contain rounded-lg transition-transform duration-700 ease-out group-hover:scale-110"
-                        loading="lazy"
-                      />
-                    </div>
-                    <figcaption className="px-5 py-4 font-heading tracking-wider text-black dark:text-white">
-                      {logo.name}
-                    </figcaption>
-                  </motion.figure>
-                ))}
-              </div>
-            </motion.div>
           </div>
         </section>
 
@@ -406,7 +357,6 @@ const WorkDisplayPage: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.5 }}
-              style={{ y: websitesHeadingY }}
             >
               <AnimatedHeading 
                 text="Website Previews" 
@@ -474,6 +424,57 @@ const WorkDisplayPage: React.FC = () => {
                     </a>
                   </div>
                 </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="logo-showcase" className="py-28 sm:py-32 md:py-40 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
+          <div className="container mx-auto px-4">
+            <motion.div
+              className="mb-14"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.45 }}
+            >
+              <AnimatedHeading 
+                text="Logo Showcase" 
+                Tag="h2" 
+                className="font-heading text-4xl md:text-6xl text-black dark:text-white flex items-center gap-2"
+              />
+              <p className="mt-3 text-black/70 dark:text-gray-400 max-w-2xl">
+                Recent logo marks from our branding work, presented in a clean gallery format.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[220px] sm:auto-rows-[240px] lg:auto-rows-[180px] gap-6">
+              {logoWorks.map((logo, index) => (
+                <motion.figure
+                  key={logo.name}
+                  className={`group relative rounded-3xl border border-gray-200/80 dark:border-gray-700/50 bg-white/90 dark:bg-dark-card/90 shadow-sm overflow-hidden backdrop-blur-sm ${logoBentoClasses[index % logoBentoClasses.length]}`}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false, amount: 0.2 }}
+                  transition={{ duration: 0.45, delay: index * 0.08 }}
+                  whileHover={{ y: -6, boxShadow: '0 20px 30px -12px rgb(0 0 0 / 0.24)' }}
+                >
+                  <div className="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-primary-green/10 dark:bg-emerald-500/10 blur-2xl pointer-events-none" />
+                  <div className="absolute -bottom-10 -left-10 w-32 h-32 rounded-full bg-emerald-300/15 dark:bg-emerald-700/20 blur-2xl pointer-events-none" />
+                  <div className="relative h-full bg-gradient-to-br from-white via-emerald-50/40 to-white dark:from-slate-900 dark:via-emerald-900/20 dark:to-slate-900 p-6">
+                    <div className={`w-full h-full rounded-2xl border border-white/70 dark:border-slate-700/60 bg-white/70 dark:bg-slate-900/70 p-4 transition-transform duration-700 ease-out group-hover:scale-[1.03] ${index % 2 === 0 ? 'rotate-[1.4deg] group-hover:rotate-0' : '-rotate-[1.4deg] group-hover:rotate-0'}`}>
+                      <img
+                        src={logo.src}
+                        alt={`${logo.name} logo`}
+                        className="w-full h-full object-contain rounded-xl transition-transform duration-700 ease-out group-hover:scale-110"
+                        loading="lazy"
+                      />
+                    </div>
+                    <figcaption className="absolute bottom-4 left-4 right-4 font-heading tracking-wider text-black dark:text-white">
+                      {logo.name}
+                    </figcaption>
+                  </div>
+                </motion.figure>
               ))}
             </div>
           </div>

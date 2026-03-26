@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, Variants, useScroll, useTransform } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { Instagram, Facebook, Linkedin } from 'lucide-react';
 import Button from './ui/Button';
 import { HeroShapeOne, HeroShapeTwo, HeroShapeThree, HeroShapeFour } from './AnimatedDecorations';
@@ -7,14 +7,6 @@ import LightRays from './LightRays';
 
 const HeroSection: React.FC = () => {
   const heroRef = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  });
-  const shapesY = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const shapesRotate = useTransform(scrollYProgress, [0, 1], [0, 5]);
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, 70]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.45]);
 
   const title = "indefined>";
   const titleVariants: Variants = {
@@ -42,7 +34,7 @@ const HeroSection: React.FC = () => {
 
   return (
     <section ref={heroRef} id="home" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-36 md:py-48 bg-white dark:bg-dark-bg transition-colors duration-300">
-      <motion.div className="absolute top-0 left-0 w-full h-full opacity-50 z-0" style={{ y: shapesY, rotate: shapesRotate }}>
+      <motion.div className="absolute top-0 left-0 w-full h-full opacity-50 z-0">
         <HeroShapeOne custom={1} className="absolute top-[10%] left-[10%]" />
         <HeroShapeTwo custom={2} className="absolute bottom-[15%] right-[12%]" />
         <HeroShapeThree custom={3} className="absolute top-[15%] right-[15%]" />
@@ -76,7 +68,6 @@ const HeroSection: React.FC = () => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        style={{ y: contentY, opacity: contentOpacity }}
       >
         <motion.h1
           className="font-heading text-7xl sm:text-8xl md:text-9xl lg:text-[11rem] xl:text-[13rem] tracking-tighter leading-none"

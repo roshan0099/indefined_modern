@@ -80,6 +80,13 @@ const listVariants = {
 
 const PricingSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const whatsappNumber = '919061660079';
+
+  const handleTierInquiry = (tier: typeof tiers[number]) => {
+    const message = `Hi indefined team, I am interested in the ${tier.name} plan (${tier.price}). Key features I am looking at: ${tier.features.join(', ')}. Please share the next steps.`;
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <section ref={sectionRef} id="pricing" className="py-24 sm:py-32 md:py-48 relative overflow-hidden border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
@@ -140,7 +147,11 @@ const PricingSection: React.FC = () => {
                 ))}
               </motion.ul>
               <motion.div variants={itemVariants}>
-                <Button variant={tier.popular ? 'primary' : 'secondary'} className={`w-full ${tier.popular ? 'dark:bg-emerald-600 dark:hover:bg-emerald-700' : 'dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600'}`}>
+                <Button
+                  variant={tier.popular ? 'primary' : 'secondary'}
+                  className={`w-full ${tier.popular ? 'dark:bg-emerald-600 dark:hover:bg-emerald-700' : 'dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600'}`}
+                  onClick={() => handleTierInquiry(tier)}
+                >
                   {tier.cta}
                 </Button>
               </motion.div>

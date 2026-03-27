@@ -41,6 +41,7 @@
 .service-marquee-track {
   display: flex;
   width: max-content;
+  gap: var(--service-item-gap, 4rem);
   will-change: transform;
   backface-visibility: hidden;
   contain: layout paint;
@@ -51,16 +52,105 @@
 .service-marquee-group {
   display: flex;
   flex-shrink: 0;
+  align-items: center;
+  gap: var(--service-item-gap, 4rem);
+}
+
+.service-marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--service-symbol-gap, 1.5rem);
+  white-space: nowrap;
+}
+
+.service-marquee-separator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1ch;
+  flex: 0 0 1ch;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+@keyframes country-marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.country-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: var(--country-item-gap, 5rem);
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: layout paint;
+  transform: translate3d(0, 0, 0);
+  animation: country-marquee-scroll var(--country-marquee-duration, 65s) linear infinite;
+}
+
+.country-marquee-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--country-item-gap, 5rem);
+}
+
+.country-marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--country-symbol-gap, 1.5rem);
+  white-space: nowrap;
+}
+
+.country-marquee-separator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1ch;
+  flex: 0 0 1ch;
+  line-height: 1;
+  letter-spacing: 0;
 }
 
 @media (max-width: 768px) {
   .service-marquee-track {
     animation-duration: 42s;
   }
+
+  .service-marquee-group {
+    gap: 2.5rem;
+  }
+
+  .service-marquee-item {
+    gap: 1rem;
+  }
+
+  .country-marquee-track {
+    animation-duration: 45s;
+    gap: 3rem;
+  }
+
+  .country-marquee-group {
+    gap: 3rem;
+  }
+
+  .country-marquee-item {
+    gap: 1rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .service-marquee-track {
+    animation: none;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .country-marquee-track {
     animation: none;
     transform: translate3d(0, 0, 0);
   }
